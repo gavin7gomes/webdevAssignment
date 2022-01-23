@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LoaderWrapper from "../LoaderWrapper/LoaderWrapper";
 import { routes, screenNames } from "./routes";
 
@@ -11,20 +11,19 @@ class AppRouterSwitch extends Component {
           style={{
             width: "100vw",
             height: "100vh",
-            backgroundColor: "red",
           }}
         >
           <Suspense fallback={<LoaderWrapper loading={true}></LoaderWrapper>}>
-            <Routes>
+            <Switch>
               {Object.values(screenNames).map((path, index) => (
                 <Route
                   exact
                   key={index}
                   path={path}
-                  element={routes[path].component}
+                  component={routes[path].component}
                 />
               ))}
-            </Routes>
+            </Switch>
           </Suspense>
         </div>
       </>
