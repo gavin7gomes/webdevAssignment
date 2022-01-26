@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
 
-export class BookDoctor extends Component {
+class OrderMeds extends Component {
   render() {
-    return <NavigationLayout>Book Doctor</NavigationLayout>;
+    return <NavigationLayout>Order medicines page</NavigationLayout>;
   }
 }
 
-export default BookDoctor;
+export default OrderMeds;
