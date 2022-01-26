@@ -1,7 +1,8 @@
-import { USER_LOGIN } from "../types";
+import { SET_SESSION_ID, USER_LOGIN } from "../types";
 
 const initialState = {
   email: "",
+  sessionId: "",
 };
 
 const userReducer = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         email: action.payload,
+      };
+    }
+    case SET_SESSION_ID: {
+      return {
+        ...state,
+        sessionId: action.payload,
       };
     }
     default: {
