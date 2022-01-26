@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import AppRouterSwitch from "./AppRouterSwitch";
 
 class AppRouter extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <AppRouterSwitch />
-      </BrowserRouter>
+      </Router>
     );
   }
 }
