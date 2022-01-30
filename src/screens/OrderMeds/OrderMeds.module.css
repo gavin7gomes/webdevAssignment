@@ -1,0 +1,97 @@
+.mainContainer{
+    width: 100%;
+    min-width: 380px;
+    height: auto;
+}
+
+.headerContainer{
+    width: 100%;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.productsContainer{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.productContainer{
+    position: relative;
+    width: 270px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 16px rgb(0 0 0 / 16%);
+    padding: 16px;
+    margin: 16px;
+    background-color: white;
+}
+
+.mainImageContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainImageContainer img{
+    height: 180px;
+}
+
+.productName{
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.productBrand{
+    font-family: calibri;
+    font-size: 16px;
+    margin-top: 0;
+    color: gray;
+}
+
+.productPrice{
+    font-size: 20px;
+    font-family: fantasy;
+    letter-spacing: 1px;
+    color: rgb(77, 77, 77);
+    margin: 0;
+}
+
+.addToCartButton{
+    position: absolute;
+    bottom: 16px;
+    width: calc(100% - 32px);
+    height: 44px;
+    background-color: green;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.outOfStockButton{
+    position: absolute;
+    bottom: 16px;
+    width: calc(100% - 32px);
+    height: 44px;
+    background-color: rgb(92, 92, 92);
+    color: white;
+    text-transform: uppercase;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    font-weight: bold;
+}

@@ -11,7 +11,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { sessionId } = this.props;
+    const { sessionId, cartItems } = this.props;
     const isUserLoggedIn = sessionId ? true : false;
     const onLogoClickRoute = sessionId ? "/dashboard" : "/";
 
@@ -35,9 +35,11 @@ class Navbar extends Component {
               <div onClick={() => this.handleNavigation("/lab")}>
                 Book Lab Test
               </div>
-              <div>
+              <div onClick={() => this.handleNavigation("/cart")}>
                 Cart
-                <Cart />
+                <span className={NavStyle.cartNumber}>
+                  {cartItems.length > 0 ? cartItems.length : null}
+                </span>
               </div>
             </>
           )}
@@ -47,8 +49,9 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, cart }) => ({
   sessionId: user.sessionId,
+  cartItems: cart.cartItems,
 });
 
 const mapDispatchToProps = {

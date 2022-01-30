@@ -69,3 +69,16 @@
     font-weight: bold;
     text-shadow: 3px 3px 1px #000000;
 }
+
+.cartNumber{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background-color: green;
+  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
