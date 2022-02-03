@@ -32,7 +32,7 @@ export class Product extends Component {
     const { loading } = this.state;
     const { currentProduct, cartItems } = this.props;
     let alreadyAddedToCart = false;
-    cartItems.forEach((i) => {
+    Object.values(cartItems).forEach((i) => {
       if (i.id === currentProduct.id) {
         alreadyAddedToCart = true;
         return;
@@ -84,7 +84,14 @@ export class Product extends Component {
                     <strong>Out of Stock</strong>
                   </div>
                 ) : (
-                  <div className={style.addToCartButton}>
+                  <div
+                    className={style.addToCartButton}
+                    onClick={
+                      alreadyAddedToCart
+                        ? null
+                        : () => this.addToCart(currentProduct.id)
+                    }
+                  >
                     {alreadyAddedToCart ? (
                       <p>Already Added</p>
                     ) : (

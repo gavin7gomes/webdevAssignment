@@ -29,7 +29,7 @@ class OrderMeds extends Component {
               <p>Order Medicines online</p>
             </div>
             <div className={style.productsContainer}>
-              {allProducts.map((product) => (
+              {Object.values(allProducts).map((product) => (
                 <ProductCard product={product} key={product.id} />
               ))}
             </div>

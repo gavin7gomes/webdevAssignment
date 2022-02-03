@@ -11,7 +11,7 @@ export class ProductCard extends Component {
   };
 
   addToCart = (id) => {
-    const currProduct = products.find((product) => product.id === id);
+    const currProduct = products[id];
     this.props.addToCart(currProduct);
   };
 

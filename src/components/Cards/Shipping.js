@@ -10,7 +10,7 @@ class Shipping extends Component {
     city: "",
     pin: "",
     country: "",
-    deliveryMethod: "cod",
+    paymentMethod: "cod",
     errors: {
       fname: false,
       lname: false,
@@ -58,7 +58,7 @@ class Shipping extends Component {
 
   handleRadio = (method) => {
     this.setState({
-      deliveryMethod: method,
+      paymentMethod: method,
     });
   };
 
@@ -164,7 +164,7 @@ class Shipping extends Component {
                 onClick={() => this.handleRadio("cod")}
                 style={{
                   backgroundColor:
-                    this.state.deliveryMethod === "" ? "white" : "green",
+                    this.state.paymentMethod === "" ? "white" : "green",
                 }}
               ></div>
               <div className={style.text}>Cash on delivery</div>

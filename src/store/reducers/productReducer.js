@@ -1,11 +1,11 @@
 import { SET_ALL_PRODUCTS, SET_CURRENT_PRODUCT } from "../types";
 
 const initialState = {
-  allProducts: [],
+  allProducts: {},
   currentProduct: {},
 };
 
-const userReducer = (state = initialState, action) => {
+const productReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_ALL_PRODUCTS: {
       return {
@@ -25,4 +25,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default productReducer;

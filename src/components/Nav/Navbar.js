@@ -37,9 +37,11 @@ class Navbar extends Component {
               </div>
               <div onClick={() => this.handleNavigation("/cart")}>
                 Cart
-                <span className={NavStyle.cartNumber}>
-                  {cartItems.length > 0 ? cartItems.length : null}
-                </span>
+                {cartItems.length > 0 && (
+                  <span className={NavStyle.cartNumber}>
+                    {cartItems.length}
+                  </span>
+                )}
               </div>
             </>
           )}
@@ -51,7 +53,7 @@ class Navbar extends Component {
 
 const mapStateToProps = ({ user, cart }) => ({
   sessionId: user.sessionId,
-  cartItems: cart.cartItems,
+  cartItems: Object.values(cart.cartItems),
 });
 
 const mapDispatchToProps = {

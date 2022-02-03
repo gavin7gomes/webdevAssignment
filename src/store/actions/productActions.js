@@ -9,7 +9,7 @@ export const fetchProducts = (products) => (dispatch, getState) => {
 };
 
 export const fetchProductById = (id) => (dispatch, getState) => {
-  const currProduct = products.find((product) => product.id === id);
+  const currProduct = products[id];
   dispatch({
     type: SET_CURRENT_PRODUCT,
     payload: currProduct,

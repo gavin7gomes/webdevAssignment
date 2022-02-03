@@ -1,30 +1,32 @@
-import { ADD_PRODUCT_TO_CART } from "../types";
+import { ADD_PRODUCT_TO_CART, CHANGE_CARTITEM_QUANTITY } from "../types";
 
 export const addToCart = (product) => (dispatch, getState) => {
   const {
     cart: { cartItems },
   } = getState();
-  let alreadyAddedToCart = false;
-  cartItems.forEach((i) => {
-    if (i.id === product.id) {
-      alreadyAddedToCart = true;
-      return;
-    }
-  });
-  if (alreadyAddedToCart) {
+
+  if (cartItems[product.id]) {
     return;
   }
 
-  product["quantity"] = 1;
+  let cartProduct = product;
+  cartProduct["quantity"] = 1;
   dispatch({
     type: ADD_PRODUCT_TO_CART,
-    payload: product,
+    payload: cartProduct,
   });
 };
 
 export const changeCartItemQuantity = (id, count) => (dispatch, getState) => {
+  const {
+    cart: { cartItems },
+  } = getState();
+
+  if (!cartItems[id]) {
+    return;
+  }
   dispatch({
-    type: ADD_PRODUCT_TO_CART,
+    type: CHANGE_CARTITEM_QUANTITY,
     payload: { id, count },
   });
 };

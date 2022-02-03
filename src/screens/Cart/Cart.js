@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import LoaderWrapper from "../../components/LoaderWrapper/LoaderWrapper";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
@@ -8,18 +8,38 @@ import { ReactComponent as ShipIcon } from "../../assets/icons/Ship.svg";
 import { ReactComponent as BackIcon } from "../../assets/icons/Back.svg";
 import CartTable from "../../components/Cards/CartTable";
 import Shipping from "../../components/Cards/Shipping";
+import { v4 as uuidv4 } from "uuid";
+import { placeOrder } from "../../store/actions/orderActions";
 
 const Cart = (props) => {
+  const ShippingDetailsRef = useRef();
   const [activeTab, setActiveTab] = useState(1);
 
   const handlePlaceOrder = () => {
-    console.log("erfr");
+    const { cartItems } = props;
+    const shippingDetails = ShippingDetailsRef.current.state;
+    const orderData = {
+      orderId: uuidv4(), //using temporary until backend provides
+      firstName: shippingDetails.fname,
+      lastName: shippingDetails.lname,
+      phone: shippingDetails.phone,
+      address: shippingDetails.address,
+      city: shippingDetails.city,
+      pin: shippingDetails.pin,
+      country: shippingDetails.country,
+      paymentMethod: shippingDetails.paymentMethod,
+      orderItems: cartItems,
+      amountPayable: calculateTotal(),
+      createdAt: new Date(),
+    };
+    props.placeOrder(orderData);
+    props.history.push("/dashboard");
   };
 
   const calculateTotal = () => {
     let total = 0;
     const { cartItems } = props;
-    cartItems.forEach((item) => {
+    Object.values(cartItems).forEach((item) => {
       const amount = item.price * item.quantity;
       total = total + amount;
     });
@@ -56,9 +76,12 @@ const Cart = (props) => {
 
           <div className={style.cartContainer}>
             {activeTab === 1 ? (
-              <CartTable data={props.cartItems} />
+              <CartTable data={Object.values(props.cartItems)} />
             ) : (
-              <Shipping data={props.cartItems} />
+              <Shipping
+                data={Object.values(props.cartItems)}
+                ref={ShippingDetailsRef}
+              />
             )}
           </div>
           <div
@@ -104,6 +127,8 @@ const mapStateToProps = ({ cart }) => ({
   cartItems: cart.cartItems,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  placeOrder,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
