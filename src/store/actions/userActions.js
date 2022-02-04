@@ -1,4 +1,6 @@
+import { products } from "../../data";
 import { SET_SESSION_ID, USER_LOGIN } from "../types";
+import { fetchProducts } from "./productActions";
 
 export const loginUser = (email) => (dispatch, getState) => {
   dispatch({
@@ -10,6 +12,7 @@ export const loginUser = (email) => (dispatch, getState) => {
     payload: "mysecretsessionId",
   });
   localStorage.setItem("sessionId", "mysecretsessionId");
+  dispatch(fetchProducts(products));
 };
 
 export const logoutUser = () => (dispatch, getState) => {
