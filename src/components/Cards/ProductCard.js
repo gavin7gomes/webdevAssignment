@@ -16,7 +16,14 @@ export class ProductCard extends Component {
   };
 
   render() {
-    const { product } = this.props;
+    const { product, cartItems } = this.props;
+    let alreadyAddedToCart = false;
+    Object.values(cartItems).forEach((i) => {
+      if (i.id === product.id) {
+        alreadyAddedToCart = true;
+        return;
+      }
+    });
     return (
       <div className={style.productContainer}>
         <div
@@ -38,16 +45,24 @@ export class ProductCard extends Component {
               ? style.outOfStockButton
               : style.addToCartButton
           }
-          onClick={() => this.addToCart(product.id)}
+          onClick={alreadyAddedToCart ? null : () => this.addToCart(product.id)}
         >
-          {product.in_stock === 0 ? <p>Out of Stock</p> : <p>Add to Cart</p>}
+          {product.in_stock === 0 ? (
+            <p>Out of Stock</p>
+          ) : (
+            <div>
+              {alreadyAddedToCart ? <p>Already Added</p> : <p>Add to Cart</p>}
+            </div>
+          )}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({ cart }) => ({
+  cartItems: cart.cartItems,
+});
 
 const mapDispatchToProps = {
   addToCart,

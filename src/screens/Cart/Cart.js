@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoaderWrapper from "../../components/LoaderWrapper/LoaderWrapper";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
 import style from "./Cart.module.css";
@@ -10,13 +10,23 @@ import CartTable from "../../components/Cards/CartTable";
 import Shipping from "../../components/Cards/Shipping";
 import { v4 as uuidv4 } from "uuid";
 import { placeOrder } from "../../store/actions/orderActions";
+import { emptyCart, removeFromCart } from "../../store/actions/cartActions";
+import { readjustProductInStock } from "../../store/actions/productActions";
 
 const Cart = (props) => {
   const ShippingDetailsRef = useRef();
   const [activeTab, setActiveTab] = useState(1);
 
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const handleRemove = (id) => {
+    dispatch(removeFromCart(id));
+  };
+
   const handlePlaceOrder = () => {
-    const { cartItems } = props;
     const shippingDetails = ShippingDetailsRef.current.state;
     const orderData = {
       orderId: uuidv4(), //using temporary until backend provides
@@ -32,13 +42,16 @@ const Cart = (props) => {
       amountPayable: calculateTotal(),
       createdAt: new Date(),
     };
-    props.placeOrder(orderData);
+    const { success } = dispatch(placeOrder(orderData));
+    if (success) {
+      dispatch(readjustProductInStock(cartItems)); //temp
+      dispatch(emptyCart());
+    }
     props.history.push("/dashboard");
   };
 
   const calculateTotal = () => {
     let total = 0;
-    const { cartItems } = props;
     Object.values(cartItems).forEach((item) => {
       const amount = item.price * item.quantity;
       total = total + amount;
@@ -46,6 +59,8 @@ const Cart = (props) => {
     console.log(total);
     return total;
   };
+
+  const iscartEmpty = Object.values(cartItems).length === 0;
 
   return (
     <LoaderWrapper>
@@ -76,10 +91,13 @@ const Cart = (props) => {
 
           <div className={style.cartContainer}>
             {activeTab === 1 ? (
-              <CartTable data={Object.values(props.cartItems)} />
+              <CartTable
+                data={Object.values(cartItems)}
+                handleRemove={handleRemove}
+              />
             ) : (
               <Shipping
-                data={Object.values(props.cartItems)}
+                data={Object.values(cartItems)}
                 ref={ShippingDetailsRef}
               />
             )}
@@ -109,8 +127,12 @@ const Cart = (props) => {
                 </div>
               ) : (
                 <div
-                  className={style.checkoutButton}
-                  onClick={() => setActiveTab(2)}
+                  className={
+                    iscartEmpty
+                      ? style.disabledCheckoutButton
+                      : style.checkoutButton
+                  }
+                  onClick={iscartEmpty ? null : () => setActiveTab(2)}
                 >
                   <p>Checkout</p>
                 </div>
@@ -123,12 +145,4 @@ const Cart = (props) => {
   );
 };
 
-const mapStateToProps = ({ cart }) => ({
-  cartItems: cart.cartItems,
-});
-
-const mapDispatchToProps = {
-  placeOrder,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default Cart;

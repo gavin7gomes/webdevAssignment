@@ -1,5 +1,8 @@
-import { products } from "../../data";
-import { SET_ALL_PRODUCTS, SET_CURRENT_PRODUCT } from "../types";
+import {
+  READJUST_PRODUCT_IN_STOCK,
+  SET_ALL_PRODUCTS,
+  SET_CURRENT_PRODUCT,
+} from "../types";
 
 export const fetchProducts = (products) => (dispatch, getState) => {
   dispatch({
@@ -9,9 +12,19 @@ export const fetchProducts = (products) => (dispatch, getState) => {
 };
 
 export const fetchProductById = (id) => (dispatch, getState) => {
-  const currProduct = products[id];
+  const {
+    product: { allProducts },
+  } = getState();
+  const currProduct = allProducts[id];
   dispatch({
     type: SET_CURRENT_PRODUCT,
     payload: currProduct,
+  });
+};
+
+export const readjustProductInStock = (cartItems) => (dispatch, getState) => {
+  dispatch({
+    type: READJUST_PRODUCT_IN_STOCK,
+    payload: cartItems,
   });
 };

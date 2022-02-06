@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import LoaderWrapper from "../../components/LoaderWrapper/LoaderWrapper";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
-import { changeCartItemQuantity } from "../../store/actions/cartActions";
+import {
+  changeCartItemQuantity,
+  addToCart,
+} from "../../store/actions/cartActions";
 import { fetchProductById } from "../../store/actions/productActions";
 import style from "./Product.module.css";
 
@@ -89,7 +92,7 @@ export class Product extends Component {
                     onClick={
                       alreadyAddedToCart
                         ? null
-                        : () => this.addToCart(currentProduct.id)
+                        : () => this.props.addToCart(currentProduct)
                     }
                   >
                     {alreadyAddedToCart ? (
@@ -106,6 +109,11 @@ export class Product extends Component {
             <p className={style.productdescription}>
               {currentProduct.description}
             </p>
+            <p style={{ color: "red" }}>
+              {currentProduct.needsPrescription &&
+                "This product needs a doctor prescription. Please upload your prescription"}
+            </p>
+            <input type="file" />
           </div>
           <div className={style.rightContainer}>
             <div
@@ -126,6 +134,10 @@ const mapStateToProps = ({ product, cart }) => ({
   cartItems: cart.cartItems,
 });
 
-const mapDispatchToProps = { fetchProductById, changeCartItemQuantity };
+const mapDispatchToProps = {
+  fetchProductById,
+  changeCartItemQuantity,
+  addToCart,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
