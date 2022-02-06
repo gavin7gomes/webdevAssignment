@@ -13,6 +13,9 @@ const BookLabTest = React.lazy(() =>
 );
 const Product = React.lazy(() => import("../../screens/Product/Product"));
 const Cart = React.lazy(() => import("../../screens/Cart/Cart"));
+const ViewOrder = React.lazy(() =>
+  import("../../screens/Dashboard/ViewOrderPage")
+);
 
 export const screenNames = {
   landingPage: "/",
@@ -22,6 +25,7 @@ export const screenNames = {
   bookLabTest: "/lab",
   productDetails: "/products/:id",
   cart: "/cart",
+  viewOrder: "/view-order/:id",
 };
 
 export const routes = {
@@ -52,5 +56,9 @@ export const routes = {
   [screenNames.cart]: {
     component: Cart,
     displayName: "Shopping Cart",
+  },
+  [screenNames.viewOrder]: {
+    component: ViewOrder,
+    displayName: "View Order",
   },
 };

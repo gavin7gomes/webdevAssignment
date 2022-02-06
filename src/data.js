@@ -11,6 +11,7 @@ export const products = {
     in_stock: 17,
     supplier: "Purple Monkey Marketing",
     ratings: 4,
+    needsPrescription: false,
   },
   2: {
     id: 2,
@@ -24,6 +25,7 @@ export const products = {
     in_stock: 0,
     supplier: "Jubilant Pharma",
     ratings: 3,
+    needsPrescription: false,
   },
   3: {
     id: 3,
@@ -37,6 +39,7 @@ export const products = {
     in_stock: 1,
     supplier: "Micro Labs Ltd",
     ratings: 3.5,
+    needsPrescription: true,
   },
   4: {
     id: 4,
@@ -50,5 +53,76 @@ export const products = {
     in_stock: 9,
     supplier: "Medisynth Ltd",
     ratings: 2.5,
+    needsPrescription: false,
+  },
+  5: {
+    id: 5,
+    name: "Allegra 120mg Tablet",
+    brand: "Sanofi India Ltd",
+    price: 60,
+    description:
+      "Allegra 120mg Tablet is an anti-allergy medicine used in the treatment of allergic symptoms such as runny nose, congestion or stuffiness, sneezing, itching, swelling, and watery eyes. It also helps treat skin allergies with itching, redness, or swelling.",
+    image:
+      "https://lh3.googleusercontent.com/ue_2zEKMiVFd8cge2tkhahdvdAo3XXAm3AUiulaPPQWZbWWhSDOKlrFqZ5vDvZxoNloRzpk9242Msz4pcaqILNVpr11SZYYWfHb3Yg0Zg5R6doWimeF3Pm2a-MgTmpecUnbNG-_v=w2400",
+    in_stock: 9,
+    supplier: "Medisynth Ltd",
+    ratings: 2.5,
+    needsPrescription: true,
+  },
+  6: {
+    id: 6,
+    name: "Jardiance 25mg Tablet",
+    brand: "Boehringer Ingelheim",
+    price: 2670,
+    description:
+      "Jardiance 25mg Tablet is used alone or in combination with other medicines to treat type 2 diabetes mellitus. It helps control the high blood sugar levels seen in diabetes. This reduces the chances of serious complications of diabetes and also helps prevent heart disease",
+    image:
+      "https://lh3.googleusercontent.com/ue_2zEKMiVFd8cge2tkhahdvdAo3XXAm3AUiulaPPQWZbWWhSDOKlrFqZ5vDvZxoNloRzpk9242Msz4pcaqILNVpr11SZYYWfHb3Yg0Zg5R6doWimeF3Pm2a-MgTmpecUnbNG-_v=w2400",
+    in_stock: 900,
+    supplier: "Medisynth Ltd",
+    ratings: 2.5,
+    needsPrescription: true,
+  },
+  7: {
+    id: 7,
+    name: "Naxdom 500 Tablet",
+    brand: "Sun Pharmaceutical Industries Ltd",
+    price: 230,
+    description:
+      "Naxdom 500 Tablet is a combination of two medicines used in the prevention of migraines. It blocks the release of certain chemical messengers that cause pain, inflammation, and fever. It also blocks the signals in the brain that cause nausea and vomiting associated with migraines.",
+    image:
+      "https://lh3.googleusercontent.com/ue_2zEKMiVFd8cge2tkhahdvdAo3XXAm3AUiulaPPQWZbWWhSDOKlrFqZ5vDvZxoNloRzpk9242Msz4pcaqILNVpr11SZYYWfHb3Yg0Zg5R6doWimeF3Pm2a-MgTmpecUnbNG-_v=w2400",
+    in_stock: 100,
+    supplier: "Medisynth Ltd",
+    ratings: 4.5,
+    needsPrescription: false,
+  },
+  8: {
+    id: 8,
+    name: "Okacet Tablet",
+    brand: "Cipla Ltd",
+    price: 820,
+    description:
+      "Okacet Tablet belongs to a group of medicines called antihistamines. It is used to treat various allergic conditions such as hay fever, conjunctivitis and some skin reactions, and reactions to bites and stings. It relieves watery eyes, runny nose, sneezing, and itching.",
+    image:
+      "https://lh3.googleusercontent.com/ue_2zEKMiVFd8cge2tkhahdvdAo3XXAm3AUiulaPPQWZbWWhSDOKlrFqZ5vDvZxoNloRzpk9242Msz4pcaqILNVpr11SZYYWfHb3Yg0Zg5R6doWimeF3Pm2a-MgTmpecUnbNG-_v=w2400",
+    in_stock: 200,
+    supplier: "Medisynth Ltd",
+    ratings: 3.5,
+    needsPrescription: true,
+  },
+  9: {
+    id: 9,
+    name: "Oncet-CF Tablet",
+    brand: "Medley Pharmaceuticals",
+    price: 20,
+    description:
+      "Oncet-CF Tablet is used in the treatment of common cold symptoms like runny nose, stuffy nose, sneezing, watery eyes, and congestion or stuffiness. It is also used to relieve pain and fever.",
+    image:
+      "https://lh3.googleusercontent.com/ue_2zEKMiVFd8cge2tkhahdvdAo3XXAm3AUiulaPPQWZbWWhSDOKlrFqZ5vDvZxoNloRzpk9242Msz4pcaqILNVpr11SZYYWfHb3Yg0Zg5R6doWimeF3Pm2a-MgTmpecUnbNG-_v=w2400",
+    in_stock: 20,
+    supplier: "Medisynth Ltd",
+    ratings: 2.5,
+    needsPrescription: false,
   },
 };

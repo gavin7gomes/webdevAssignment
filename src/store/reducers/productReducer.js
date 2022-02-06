@@ -1,4 +1,8 @@
-import { SET_ALL_PRODUCTS, SET_CURRENT_PRODUCT } from "../types";
+import {
+  READJUST_PRODUCT_IN_STOCK,
+  SET_ALL_PRODUCTS,
+  SET_CURRENT_PRODUCT,
+} from "../types";
 
 const initialState = {
   allProducts: {},
@@ -17,6 +21,24 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         currentProduct: action.payload,
+      };
+    }
+    case READJUST_PRODUCT_IN_STOCK: {
+      const cartItems = action.payload;
+      const allProducts = state.allProducts;
+      let newAllProducts = allProducts;
+      Object.keys(cartItems).forEach((id) => {
+        newAllProducts = {
+          ...newAllProducts,
+          [id]: {
+            ...allProducts[id],
+            in_stock: allProducts[id].in_stock - cartItems[id].quantity,
+          },
+        };
+      });
+      return {
+        ...state,
+        allProducts: newAllProducts,
       };
     }
     default: {

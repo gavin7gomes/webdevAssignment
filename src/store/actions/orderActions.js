@@ -5,4 +5,6 @@ export const placeOrder = (orderData) => (dispatch, getState) => {
     type: ADD_NEW_ORDER,
     payload: orderData,
   });
+
+  return { success: true };
 };
