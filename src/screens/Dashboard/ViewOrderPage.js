@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
 import style from "./Dashboard.module.css";
+import dayjs from "dayjs";
 
 export class ViewOrderPage extends Component {
   state = {
@@ -27,7 +28,10 @@ export class ViewOrderPage extends Component {
             Adress:{" "}
             {`${currentOrder.address} ${currentOrder.pin} ${currentOrder.city} ${currentOrder.country}`}
           </p>
-          <p>Date of order: </p>
+          <p>
+            Date of order:{" "}
+            {dayjs(currentOrder.createdAt).format("dddd, MMMM D, YYYY h:mm A")}
+          </p>
           <p>Payment Method: {currentOrder.paymentMethod}</p>
           <p>Phone Number: {currentOrder.phone}</p>
           {currentOrder?.orderItems !== undefined &&

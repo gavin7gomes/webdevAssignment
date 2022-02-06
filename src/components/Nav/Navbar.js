@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import NavStyle from "./Nav.module.css";
-import { ReactComponent as Cart } from "../../assets/icons/CartIcon.svg";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../store/actions/userActions";
