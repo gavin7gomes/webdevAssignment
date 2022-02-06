@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactComponent as Loader } from "../../assets/icons/loader.svg";
 
 const LoaderWrapper = ({ loading, ...props }) => {
   return (
@@ -14,7 +15,7 @@ const LoaderWrapper = ({ loading, ...props }) => {
           zIndex: 100,
         }}
       >
-        Loading...
+        <Loader />
       </div>
       {props.children}
     </div>
