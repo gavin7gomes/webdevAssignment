@@ -1,3 +1,5 @@
+export const service = "http://127.0.0.1:8000";
+
 export const validateEmail = (email) => {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);

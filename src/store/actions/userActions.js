@@ -12,7 +12,7 @@ export const loginUser = (email) => (dispatch, getState) => {
     payload: "mysecretsessionId",
   });
   localStorage.setItem("sessionId", "mysecretsessionId");
-  dispatch(fetchProducts(products));
+  dispatch(fetchProducts());
 };
 
 export const logoutUser = () => (dispatch, getState) => {
