@@ -20,6 +20,7 @@ class OrderMeds extends Component {
 
   render() {
     const { allProducts } = this.props;
+    console.log(allProducts);
     const { loading } = this.state;
     return (
       <LoaderWrapper loading={loading}>

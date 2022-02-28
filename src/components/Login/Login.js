@@ -43,7 +43,7 @@ class Login extends Component {
     }
     this.setState({ errors });
     if (!errors.email && !errors.password) {
-      this.props.loginUser(this.state.email);
+      this.props.loginUser(this.state.email, this.state.password);
       this.props.history.push("/dashboard");
     }
   };

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { products } from "../../data";
 import style from "../../screens/OrderMeds/OrderMeds.module.css";
 import { addToCart } from "../../store/actions/cartActions";
 
@@ -10,8 +9,7 @@ export class ProductCard extends Component {
     this.props.history.push(`/products/${id}`);
   };
 
-  addToCart = (id) => {
-    const currProduct = products[id];
+  addToCart = (currProduct) => {
     this.props.addToCart(currProduct);
   };
 
@@ -45,7 +43,7 @@ export class ProductCard extends Component {
               ? style.outOfStockButton
               : style.addToCartButton
           }
-          onClick={alreadyAddedToCart ? null : () => this.addToCart(product.id)}
+          onClick={alreadyAddedToCart ? null : () => this.addToCart(product)}
         >
           {product.in_stock === 0 ? (
             <p>Out of Stock</p>

@@ -1,4 +1,4 @@
-export const USER_LOGIN = "USER_LOGIN";
+export const USER_INFO = "USER_INFO";
 export const SET_SESSION_ID = "SET_SESSION_ID";
 export const SET_ALL_PRODUCTS = "SET_ALL_PRODUCTS";
 export const SET_CURRENT_PRODUCT = "SET_CURRENT_PRODUCT";

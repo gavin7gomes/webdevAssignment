@@ -6,12 +6,21 @@ import {
 import axios from "axios";
 import { service } from "../../utils/utils";
 
-export const fetchProducts = () => async (dispatch, getState) => {
+export const fetchProducts = (token) => async (dispatch, getState) => {
+  const config = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
   try {
-    const { data } = await axios.get(`http://127.0.0.1:8000/products/`);
+    const { data } = await axios.get(`http://127.0.0.1:8000/products/`, config);
+    const products = data.reduce(
+      (acc, obj) => Object.assign(acc, { [obj.id]: obj }),
+      {}
+    );
     dispatch({
       type: SET_ALL_PRODUCTS,
-      payload: data,
+      payload: products,
     });
   } catch (error) {
     console.log(error);
@@ -20,8 +29,19 @@ export const fetchProducts = () => async (dispatch, getState) => {
 };
 
 export const fetchProductById = (id) => async (dispatch, getState) => {
+  const {
+    user: { sessionId },
+  } = getState();
+  const config = {
+    headers: {
+      Authorization: `Token ${sessionId}`,
+    },
+  };
   try {
-    const { data } = await axios.get(`http://127.0.0.1:8000/products/${id}`);
+    const { data } = await axios.get(
+      `http://127.0.0.1:8000/products/${id}`,
+      config
+    );
     console.log("qqq", data);
     dispatch({
       type: SET_CURRENT_PRODUCT,
