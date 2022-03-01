@@ -3,15 +3,35 @@ import Login from "../../components/Login/Login";
 import NavigationLayout from "../../components/Nav/NavigationLayout";
 import style from "./Landing.module.css";
 import WelcomeImg from "../../assets/images/WelcomeImg.jpg";
+import Register from "../../components/Register/Register";
 
 export class LandingPage extends Component {
+  state = {
+    showLogin: true,
+  };
+
+  showRegister = () => {
+    this.setState({
+      showLogin: false,
+    });
+  };
+
+  showLogin = () => {
+    this.setState({
+      showLogin: true,
+    });
+  };
   render() {
     return (
       <NavigationLayout>
         <div className={style.container}>
           <div className={style.innerContainer}>
             <div className={style.loginContainer}>
-              <Login />
+              {this.state.showLogin ? (
+                <Login showRegister={this.showRegister} />
+              ) : (
+                <Register showLogin={this.showLogin} />
+              )}
             </div>
             <div className={style.welcomeContainer}>
               <div className={style.welcomeInnerContainer}>

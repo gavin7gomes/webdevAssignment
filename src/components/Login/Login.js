@@ -9,6 +9,7 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
+    errorMessage: "",
     errors: {
       email: false,
       password: false,
@@ -29,7 +30,7 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleLogin = () => {
+  handleLogin = async () => {
     let errors = this.state.errors;
     if (
       !this.state.email ||
@@ -43,7 +44,16 @@ class Login extends Component {
     }
     this.setState({ errors });
     if (!errors.email && !errors.password) {
-      this.props.loginUser(this.state.email, this.state.password);
+      const { success } = await this.props.loginUser(
+        this.state.email,
+        this.state.password
+      );
+      if (!success) {
+        this.setState({
+          errorMessage: "Unable to login, please check your credentials",
+        });
+        return;
+      }
       this.props.history.push("/dashboard");
     }
   };
@@ -80,6 +90,18 @@ class Login extends Component {
           <div className={style.loginButton} onClick={this.handleLogin}>
             <p>Go</p>
           </div>
+          <p className={style.registerText}>
+            Don't have an account,{" "}
+            <span
+              className={style.registerCta}
+              onClick={this.props.showRegister}
+            >
+              Register
+            </span>
+          </p>
+          {this.state.errorMessage && (
+            <p className={style.errorText}>{this.state.errorMessage}</p>
+          )}
         </div>
       </div>
     );

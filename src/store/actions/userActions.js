@@ -14,9 +14,9 @@ export const loginUser = (email, password) => async (dispatch, getState) => {
     });
     localStorage.setItem("pharmacyApp7SessionId", data.token);
     await dispatch(getUserDetails(data.token));
+    return { success: true };
   } catch (error) {
-    console.log(error);
-    return error;
+    return { success: false };
   }
 };
 
@@ -50,3 +50,23 @@ export const getUserDetails = (token) => async (dispatch, getState) => {
   });
   await dispatch(fetchProducts(token));
 };
+
+export const registerUser =
+  (email, password, password2, firstName, lastName) =>
+  async (dispatch, getState) => {
+    try {
+      const body = {
+        username: email,
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+        password2: password2,
+      };
+      const res = await axios.post(`http://127.0.0.1:8000/user/create`, body);
+      console.log("lllllll", res);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
