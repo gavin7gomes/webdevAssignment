@@ -9,27 +9,32 @@ import { ReactComponent as BackIcon } from "../../assets/icons/Back.svg";
 import CartTable from "../../components/Cards/CartTable";
 import Shipping from "../../components/Cards/Shipping";
 import { v4 as uuidv4 } from "uuid";
-import { placeOrder } from "../../store/actions/orderActions";
+import { createOrderItems, placeOrder } from "../../store/actions/orderActions";
 import { emptyCart, removeFromCart } from "../../store/actions/cartActions";
 import { readjustProductInStock } from "../../store/actions/productActions";
 
 const Cart = (props) => {
   const ShippingDetailsRef = useRef();
   const [activeTab, setActiveTab] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const user = useSelector((state) => state.user);
+  const { id } = user.userInfo;
+
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const shippingDetails = ShippingDetailsRef.current.state;
     const orderData = {
-      orderId: uuidv4(), //using temporary until backend provides
+      orderId: uuidv4(),
+      buyer: id,
       firstName: shippingDetails.fname,
       lastName: shippingDetails.lname,
       phone: shippingDetails.phone,
@@ -38,16 +43,28 @@ const Cart = (props) => {
       pin: shippingDetails.pin,
       country: shippingDetails.country,
       paymentMethod: shippingDetails.paymentMethod,
-      orderItems: cartItems,
       amountPayable: calculateTotal(),
       createdAt: new Date(),
     };
-    const { success } = dispatch(placeOrder(orderData));
+    setLoading(true);
+    const { success = false, data } = await dispatch(placeOrder(orderData));
     if (success) {
-      dispatch(readjustProductInStock(cartItems)); //temp
+      if (Object.keys(cartItems).length > 0) {
+        for (let index = 0; index < Object.keys(cartItems).length; index++) {
+          const payload = {
+            order: data.id,
+            product: Object.values(cartItems)[index].id,
+            quantity: Object.values(cartItems)[index].quantity,
+          };
+          await dispatch(createOrderItems(payload));
+        }
+      }
       dispatch(emptyCart());
+      props.history.push("/dashboard");
+      setLoading(false);
+    } else {
+      alert("Something went wrong, Order could not be placed");
     }
-    props.history.push("/dashboard");
   };
 
   const calculateTotal = () => {
@@ -63,7 +80,7 @@ const Cart = (props) => {
   const iscartEmpty = Object.values(cartItems).length === 0;
 
   return (
-    <LoaderWrapper>
+    <LoaderWrapper loading={loading}>
       <NavigationLayout>
         <div className={style.container}>
           <div className={style.header}>
